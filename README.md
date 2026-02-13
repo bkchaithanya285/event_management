@@ -72,6 +72,18 @@ Secure, distinct dashboards for 5 user roles:
    ```
    Visit `http://localhost:5173` to view the application.
 
+## 🔑 Test Credentials
+
+Use these pre-configured accounts to test different roles and workflows:
+
+| Role | Email | Password |
+|------|-------|----------|
+| **Event Coordinator** | `coordinator@ierms.edu` | `password123` |
+| **HOD (CSE)** | `hod.cse@ierms.edu` | `password123` |
+| **Dean** | `dean@ierms.edu` | `password123` |
+| **Institutional Head** | `head@ierms.edu` | `password123` |
+| **Admin / ITC** | `admin@ierms.edu` | `password123` |
+
 ## 📱 Application Flow
 
 1. **Registration**: Users register with their specific role (Coordinator, HOD, etc.).
