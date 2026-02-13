@@ -1,7 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const LandingPage = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        if (params.get('setup') === 'true') {
+            const runSeed = async () => {
+                if (confirm('Initialize database with default users? This will sign you out.')) {
+                    try {
+                        const { seedUsers } = await import('../seedUsers');
+                        const results = await seedUsers();
+                        alert('Database Initialized:\n' + JSON.stringify(results, null, 2));
+                        // Remove query param to prevent re-running
+                        window.history.replaceState({}, '', '/');
+                    } catch (error) {
+                        alert('Setup failed: ' + error.message);
+                    }
+                }
+            };
+            runSeed();
+        }
+    }, [location]);
+
     return (
         <div className="min-h-screen bg-slate-50 font-sans">
             {/* Navigation */}
@@ -21,19 +43,6 @@ const LandingPage = () => {
                     <Link to="/login" className="btn btn-primary">
                         Sign In / Register
                     </Link>
-                    {/* DEV ONLY: Seed Button */}
-                    <button
-                        onClick={async () => {
-                            if (confirm('Create dummy users? This will sign you out.')) {
-                                const { seedUsers } = await import('../seedUsers');
-                                const results = await seedUsers();
-                                alert(JSON.stringify(results, null, 2));
-                            }
-                        }}
-                        className="hidden lg:block px-3 py-1 text-xs text-slate-300 hover:text-brand-600 transition-colors"
-                    >
-                        Seed DB
-                    </button>
                 </div>
             </nav>
 
