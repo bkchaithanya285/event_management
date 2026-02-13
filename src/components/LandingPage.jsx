@@ -21,6 +21,19 @@ const LandingPage = () => {
                     <Link to="/login" className="btn btn-primary">
                         Sign In / Register
                     </Link>
+                    {/* DEV ONLY: Seed Button */}
+                    <button
+                        onClick={async () => {
+                            if (confirm('Create dummy users? This will sign you out.')) {
+                                const { seedUsers } = await import('../seedUsers');
+                                const results = await seedUsers();
+                                alert(JSON.stringify(results, null, 2));
+                            }
+                        }}
+                        className="hidden lg:block px-3 py-1 text-xs text-slate-300 hover:text-brand-600 transition-colors"
+                    >
+                        Seed DB
+                    </button>
                 </div>
             </nav>
 
